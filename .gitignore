@@ -39,3 +39,6 @@ out/
 ### Mac ###
 .DS_Store
 .AppleDouble
+
+### db ###
+/src/main/resources/application-dev.yml
