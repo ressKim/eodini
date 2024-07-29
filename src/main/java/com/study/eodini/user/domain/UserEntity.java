@@ -1,4 +1,4 @@
-package com.study.eodini.user;
+package com.study.eodini.user.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
