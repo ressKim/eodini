@@ -8,7 +8,7 @@ public class BaseException extends RuntimeException {
     private final BaseExceptionMessage baseExceptionMessage;
 
     public BaseException(BaseExceptionMessage e) {
-        super(e.message());
+        super(e.getGetMessage());
         this.baseExceptionMessage = e;
     }
 }

@@ -12,6 +12,7 @@ public class UserService {
 
 
     public void createUser(UserDto userDto) {
+        UserDto.isValid(userDto);
 
     }
 }

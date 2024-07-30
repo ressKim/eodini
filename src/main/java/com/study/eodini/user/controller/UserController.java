@@ -14,10 +14,8 @@ public class UserController {
     private final UserService userService;
 
 
-    @PostMapping("/create")
+    @PostMapping("/join")
     public void createUser(UserDto userDto) {
         userService.createUser(userDto);
-
-
     }
 }
