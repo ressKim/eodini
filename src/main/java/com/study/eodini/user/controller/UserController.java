@@ -18,4 +18,5 @@ public class UserController {
     public void createUser(UserDto userDto) {
         userService.createUser(userDto);
     }
+
 }
