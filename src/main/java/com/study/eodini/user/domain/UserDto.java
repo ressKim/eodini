@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 @Getter
 public class UserDto {
 
-    private String name;
-    private String email;
-    private String password;
-    private String age;
+    private final String name;
+    private final String email;
+    private final String password;
+    private final Integer age;
 
     /**
      * 회원 Valid check 하기 위한 로직
@@ -66,6 +66,15 @@ public class UserDto {
         }
     }
 
+    public UserEntity toEntity() {
+        return UserEntity.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .age(age)
+                .build();
+    }
+
     /**
      * 필수값 email, 나머지는 선택값으로 builder 구현
      */
@@ -77,7 +86,7 @@ public class UserDto {
         // 선택
         private String password;
         private String name;
-        private String phoneNumber;
+        private Integer age;
 
         public Builder(String email) {
             this.email = email;
@@ -93,17 +102,17 @@ public class UserDto {
             return this;
         }
 
-        public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+        public Builder age(Integer age) {
+            this.age = age;
             return this;
         }
 
         public UserDto build() {
-            return new UserDto(email, password, name, phoneNumber);
+            return new UserDto(email, password, name, age);
         }
     }
 
-    private UserDto(String name, String email, String password, String age) {
+    public UserDto(String name, String email, String password, Integer age) {
         this.name = name;
         this.email = email;
         this.password = password;

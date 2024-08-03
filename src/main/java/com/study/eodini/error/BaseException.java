@@ -3,7 +3,7 @@ package com.study.eodini.error;
 import lombok.Getter;
 
 @Getter
-public class BaseException extends RuntimeException {
+public abstract class BaseException extends RuntimeException {
 
     private final BaseExceptionMessage baseExceptionMessage;
 

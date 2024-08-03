@@ -1,5 +1,6 @@
 package com.study.eodini.user.controller;
 
+import com.study.eodini.api.ApiResponse;
 import com.study.eodini.user.domain.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,9 @@ public class UserController {
 
 
     @PostMapping("/join")
-    public void createUser(UserDto userDto) {
+    public ApiResponse createUser(UserDto userDto) {
         userService.createUser(userDto);
+        return ApiResponse.success();
     }
 
 }
