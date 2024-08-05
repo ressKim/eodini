@@ -3,18 +3,11 @@ package com.study.eodini.user.domain;
 import com.study.eodini.user.error.UserException;
 import com.study.eodini.user.error.UserExceptionMessage;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.regex.Pattern;
 
-@ToString
-@Getter
-public class UserDto {
-
-    private final String name;
-    private final String email;
-    private final String password;
-    private final Integer age;
+//@Getter
+public record UserDto(String name, String email, String password, Integer age) {
 
     /**
      * 회원 Valid check 하기 위한 로직
@@ -33,14 +26,14 @@ public class UserDto {
      */
     public static void isValid(UserDto userDto) {
 
-        emailPatternCheck(userDto.getEmail());
-        passwordPatternCheck(userDto.getPassword());
+        emailPatternCheck(userDto.email());
+        passwordPatternCheck(userDto.password());
 
     }
 
     public static void isLoginValid(UserDto userDto) {
-        emailPatternCheck(userDto.getEmail());
-        passwordPatternCheck(userDto.getPassword());
+        emailPatternCheck(userDto.email());
+        passwordPatternCheck(userDto.password());
     }
 
     private static void emailPatternCheck(String email) {
@@ -110,13 +103,6 @@ public class UserDto {
         public UserDto build() {
             return new UserDto(email, password, name, age);
         }
-    }
-
-    public UserDto(String name, String email, String password, Integer age) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.age = age;
     }
 
 }

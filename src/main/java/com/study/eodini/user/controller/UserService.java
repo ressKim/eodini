@@ -17,7 +17,7 @@ public class UserService {
 
     public void createUser(UserDto userDto) {
         UserDto.isValid(userDto);
-        if(userRepository.existsByEmail(userDto.getEmail()).equals(false)){
+        if(userRepository.existsByEmail(userDto.email()).equals(false)){
             throw new UserException(UserExceptionMessage.DUPLICATED_EMAIL);
         }
         userRepository.save(userDto.toEntity());
