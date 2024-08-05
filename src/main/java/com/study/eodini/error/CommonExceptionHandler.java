@@ -1,6 +1,5 @@
 package com.study.eodini.error;
 
-import com.study.eodini.api.ApiHeader;
 import com.study.eodini.api.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,16 +23,16 @@ public class CommonExceptionHandler {
     public ApiResponse<RuntimeException> runtimeException(RuntimeException e) {
         log.debug("[runtime exception 내용 ={}]", e.getMessage());
         if (e instanceof BaseException baseException) {
-            return ApiResponse.fail(baseException.getBaseExceptionMessage().getApiHeader(), baseException.getMessage());
+            return ApiResponse.fail(baseException.getBaseExceptionMessage().getHttpStatus(), baseException.getMessage());
         }
-        return ApiResponse.fail(ApiHeader.FAIL, e.getLocalizedMessage());
+        return ApiResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler
     public ApiResponse<Error> exHandler(Exception e) {
         log.error("[error ex] = {}]", e.getLocalizedMessage());
-        return ApiResponse.fail(ApiHeader.FAIL, e.getLocalizedMessage());
+        return ApiResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
     }
 
 }

@@ -1,8 +1,8 @@
 package com.study.eodini.error;
 
-import com.study.eodini.api.ApiHeader;
+import org.springframework.http.HttpStatus;
 
 public interface BaseExceptionMessage {
-    ApiHeader getApiHeader();
+    HttpStatus getHttpStatus();
     String getGetMessage();
 }

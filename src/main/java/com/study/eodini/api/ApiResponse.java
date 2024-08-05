@@ -4,29 +4,26 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
 
-    private ApiHeader apiHeader;
+    private HttpStatus status;
     private T data;
     private String message;
 
+
     public static <T> ApiResponse<T> success() {
-        return new ApiResponse<>(ApiHeader.SUCCESS, null, null);
+        return new ApiResponse<>(HttpStatus.OK, null, null);
     }
-
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(ApiHeader.SUCCESS, data, null);
+        return new ApiResponse<>(HttpStatus.OK, data, null);
     }
 
-    public static <T> ApiResponse<T> fail(String message) {
-        return new ApiResponse<>(ApiHeader.FAIL, null, message);
-    }
-
-    public static <T> ApiResponse<T> fail(ApiHeader apiHeader, String message) {
-        return new ApiResponse<>(apiHeader, null, message);
+    public static <T> ApiResponse<T> fail(HttpStatus status, String message) {
+        return new ApiResponse<>(status, null, message);
     }
 }

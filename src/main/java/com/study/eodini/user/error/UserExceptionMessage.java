@@ -1,9 +1,9 @@
 package com.study.eodini.user.error;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.study.eodini.api.ApiHeader;
 import com.study.eodini.error.BaseExceptionMessage;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /**
  * 메세지 관리를 편하게하기 위해 enum 으로 관리
@@ -14,9 +14,9 @@ import lombok.Getter;
 @Getter
 public enum UserExceptionMessage implements BaseExceptionMessage {
 
-    WRONG_EMAIL(ApiHeader.BAD_REQUEST, "아이디 형식이 잘못되었습니다."),
-    DUPLICATED_EMAIL(ApiHeader.BAD_REQUEST, "Email 이 이미 사용중입니다."),
-    WRONG_PASSWORD_FORM(ApiHeader.BAD_REQUEST, "패스워드 형식이 잘못되었습니다."),
+    WRONG_EMAIL(HttpStatus.BAD_REQUEST, "아이디 형식이 잘못되었습니다."),
+    DUPLICATED_EMAIL(HttpStatus.BAD_REQUEST, "Email 이 이미 사용중입니다."),
+    WRONG_PASSWORD_FORM(HttpStatus.BAD_REQUEST, "패스워드 형식이 잘못되었습니다."),
 
 
 
@@ -28,11 +28,11 @@ public enum UserExceptionMessage implements BaseExceptionMessage {
 
 
 
-    private final ApiHeader apiHeader;
+    private final HttpStatus httpStatus;
     private final String getMessage;
 
-    UserExceptionMessage(ApiHeader apiHeader, String getMessage) {
-        this.apiHeader = apiHeader;
+    UserExceptionMessage(HttpStatus httpStatus, String getMessage) {
+        this.httpStatus = httpStatus;
         this.getMessage = getMessage;
     }
 

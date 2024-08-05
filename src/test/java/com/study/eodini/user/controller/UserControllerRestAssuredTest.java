@@ -2,6 +2,8 @@ package com.study.eodini.user.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.eodini.user.domain.UserDto;
+import io.restassured.response.ValidatableResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,20 +34,16 @@ class UserControllerRestAssuredTest {
     void createUserRestAssuredTest() {
         var getUserDtoMap = getUserDtoMap();
 
-
-//        RestAssured
-//                .post("/user/join", getUserValue)
-//                .then()
-//                .statusCode(200);
-        RestAssured
+        ValidatableResponse validatableResponse = RestAssured
                 .given().log().all()
-                    .contentType("application/json")
-                    .body(getUserDtoMap)
+                .contentType("application/json")
+                .body(getUserDtoMap)
                 .when()
                     .post("/user/join")
-                .then()
-                    .log().all()
-                    .statusCode(200);
+                .then().log().ifError()
+                .statusCode(200);
+
+        Assertions.assertEquals(validatableResponse.extract().statusCode(), 200);
 
     }
 
