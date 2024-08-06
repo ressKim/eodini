@@ -1,6 +1,7 @@
 package com.study.eodini.user.controller;
 
 import com.study.eodini.user.domain.UserDto;
+import com.study.eodini.user.domain.UserValue;
 import com.study.eodini.user.error.UserException;
 import com.study.eodini.user.error.UserExceptionMessage;
 import jakarta.transaction.Transactional;
@@ -22,5 +23,11 @@ public class UserService {
         }
         userRepository.save(userDto.toEntity());
 
+    }
+
+    public UserValue getUser(UserDto userDto) {
+
+
+        return null;
     }
 }

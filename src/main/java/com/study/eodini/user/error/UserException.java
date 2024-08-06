@@ -5,6 +5,7 @@ import com.study.eodini.error.BaseExceptionMessage;
 import lombok.Getter;
 
 @Getter
+//@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class UserException extends BaseException {
 
 

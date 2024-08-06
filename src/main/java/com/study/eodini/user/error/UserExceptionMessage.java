@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
  * 메세지 관리를 편하게하기 위해 enum 으로 관리
  * 나중에 한글 텍스트를 바꿀때 편하도록 구현
  * 나중에 더 모을 필요가 있으면 yml 파일에 모아서 관리
+ *
+ * ++ 여기는 원래 Throwable에 있는 code, getMessage 를 상속을 이용하여 다시 구현한것
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
@@ -28,12 +30,21 @@ public enum UserExceptionMessage implements BaseExceptionMessage {
 
 
 
-    private final HttpStatus httpStatus;
+    private final HttpStatus getStatus;
     private final String getMessage;
 
-    UserExceptionMessage(HttpStatus httpStatus, String getMessage) {
-        this.httpStatus = httpStatus;
+    UserExceptionMessage(HttpStatus getStatus, String getMessage) {
+        this.getStatus = getStatus;
         this.getMessage = getMessage;
     }
 
+    @Override
+    public HttpStatus getStatus() {
+        return getStatus;
+    }
+
+    @Override
+    public String getMessage() {
+        return getMessage;
+    }
 }

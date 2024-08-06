@@ -21,9 +21,9 @@ public class CommonExceptionHandler {
     @ResponseBody
     @ExceptionHandler(RuntimeException.class)
     public ApiResponse<RuntimeException> runtimeException(RuntimeException e) {
-        log.debug("[runtime exception 내용 ={}]", e.getMessage());
+        log.warn("[runtime exception 내용 ={}]", e.getMessage());
         if (e instanceof BaseException baseException) {
-            return ApiResponse.fail(baseException.getBaseExceptionMessage().getHttpStatus(), baseException.getMessage());
+            return ApiResponse.fail(baseException.getBaseExceptionMessage().getStatus(), baseException.getLocalizedMessage());
         }
         return ApiResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
     }

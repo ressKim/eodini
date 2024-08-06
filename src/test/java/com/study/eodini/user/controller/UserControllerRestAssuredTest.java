@@ -2,17 +2,15 @@ package com.study.eodini.user.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.eodini.user.domain.UserDto;
-import io.restassured.response.ValidatableResponse;
-import org.junit.jupiter.api.Assertions;
+import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-
-import static org.hamcrest.Matchers.is;
-
-import io.restassured.RestAssured;
 
 import java.util.Map;
 
@@ -34,18 +32,24 @@ class UserControllerRestAssuredTest {
     void createUserRestAssuredTest() {
         var getUserDtoMap = getUserDtoMap();
 
-        ValidatableResponse validatableResponse = RestAssured
+        ExtractableResponse<Response> createResponse = RestAssured
                 .given().log().all()
                 .contentType("application/json")
                 .body(getUserDtoMap)
                 .when()
-                    .post("/user/join")
-                .then().log().ifError()
-                .statusCode(200);
+                .post("/user/join")
+//                .then().log().ifError()
+                .then().log().all()
+                .statusCode(200)
+                .extract();
 
-        Assertions.assertEquals(validatableResponse.extract().statusCode(), 200);
+        Assertions.assertThat(createResponse.statusCode()).isEqualTo(200);
+
 
     }
+
+
+
 
     private static Map getUserDtoMap() {
         UserDto getUserValue =

@@ -21,4 +21,9 @@ public class UserController {
         return ApiResponse.success();
     }
 
+    public ApiResponse getUser(UserDto userDto) {
+        userService.getUser(userDto);
+        return ApiResponse.success();
+    }
+
 }

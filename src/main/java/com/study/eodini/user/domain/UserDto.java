@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.regex.Pattern;
 
 //@Getter
-public record UserDto(String name, String email, String password, Integer age) {
+public record UserDto(String name, String email, String password) {
 
     /**
      * 회원 Valid check 하기 위한 로직
@@ -64,7 +64,6 @@ public record UserDto(String name, String email, String password, Integer age) {
                 .name(name)
                 .email(email)
                 .password(password)
-                .age(age)
                 .build();
     }
 
@@ -101,7 +100,7 @@ public record UserDto(String name, String email, String password, Integer age) {
         }
 
         public UserDto build() {
-            return new UserDto(email, password, name, age);
+            return new UserDto(name, email, password);
         }
     }
 
