@@ -19,6 +19,8 @@ public enum UserExceptionMessage implements BaseExceptionMessage {
     WRONG_EMAIL(HttpStatus.BAD_REQUEST, "아이디 형식이 잘못되었습니다."),
     DUPLICATED_EMAIL(HttpStatus.BAD_REQUEST, "Email 이 이미 사용중입니다."),
     WRONG_PASSWORD_FORM(HttpStatus.BAD_REQUEST, "패스워드 형식이 잘못되었습니다."),
+    WRONG_USER_FORM(HttpStatus.BAD_REQUEST, "유저 정보가 잘못되었습니다."),
+    NOT_FOUND_USER(HttpStatus.NOT_FOUND, "해당 유저가 존재하지 않습니다."),
 
 
 

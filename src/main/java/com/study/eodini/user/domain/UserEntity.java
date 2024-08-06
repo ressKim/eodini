@@ -20,7 +20,6 @@ public class UserEntity extends BaseInformEntity {
     private String name;
     private String email;
     private String password;
-    private Integer age;
 
 
 }

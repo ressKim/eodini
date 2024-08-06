@@ -18,7 +18,7 @@ public class UserService {
 
     public void createUser(UserDto userDto) {
         UserDto.isValid(userDto);
-        if(userRepository.existsByEmail(userDto.email()).equals(false)){
+        if (userRepository.existsByEmail(userDto.email()).equals(true)) {
             throw new UserException(UserExceptionMessage.DUPLICATED_EMAIL);
         }
         userRepository.save(userDto.toEntity());
@@ -27,7 +27,13 @@ public class UserService {
 
     public UserValue getUser(UserDto userDto) {
 
-
-        return null;
+        if (userDto.name() != null) {
+            return userRepository.findByName(userDto.name()).orElseThrow(
+                    () -> new UserException(UserExceptionMessage.NOT_FOUND_USER));
+        } else if (userDto.email() != null) {
+            return userRepository.findByEmail(userDto.email()).orElseThrow(
+                    () -> new UserException(UserExceptionMessage.NOT_FOUND_USER));
+        } else
+            throw new UserException(UserExceptionMessage.WRONG_USER_FORM);
     }
 }
