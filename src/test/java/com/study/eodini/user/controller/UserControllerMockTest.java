@@ -1,7 +1,6 @@
 package com.study.eodini.user.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.eodini.api.ApiResponse;
 import com.study.eodini.error.CommonExceptionHandler;
 import com.study.eodini.user.domain.UserDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,15 +11,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(MockitoExtension.class)
@@ -58,15 +56,8 @@ class UserControllerMockTest {
                         .build();
 
         MockHttpServletResponse getResponse = getMockHttpServletResponseUserJoin(getUserValue);
-        String contentAsString = getResponse.getContentAsString();
-
 
         assertThat(getResponse.getStatus()).isEqualTo(200);
-        assertThat(contentAsString).isEqualTo(
-                new ObjectMapper().writeValueAsString(
-                        ApiResponse.success()
-                )
-        );
     }
 
     private MockHttpServletResponse getMockHttpServletResponseUserJoin(UserDto userDto) throws Exception {

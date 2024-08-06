@@ -15,7 +15,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import java.util.Map;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-//@SpringBootTest
 class UserControllerRestAssuredTest {
 
     @LocalServerPort
