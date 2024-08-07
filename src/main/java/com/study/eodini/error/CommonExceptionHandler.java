@@ -22,12 +22,13 @@ public class CommonExceptionHandler {
     @ResponseBody
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> runtimeException(RuntimeException e) {
-        log.warn("[runtime exception 내용 ={}]", e.getMessage());
         if (e instanceof BaseException baseException) {
+            log.debug("[runtime exception 내용 ={}]", e.getMessage());
             return ResponseEntity
                     .status(baseException.getBaseExceptionMessage().getStatus())
                     .body(baseException.getMessage());
         }
+        log.warn("[runtime exception 내용 ={}]", e.getMessage());
         return ResponseEntity.internalServerError().body(e.getMessage());
     }
 

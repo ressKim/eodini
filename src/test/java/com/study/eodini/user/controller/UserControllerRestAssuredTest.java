@@ -37,8 +37,8 @@ class UserControllerRestAssuredTest {
                 .body(getUserDtoMap)
                 .when()
                 .post("/user/join")
-//                .then().log().ifError()
-                .then().log().all()
+                .then().log().ifError()
+//                .then().log().all()
                 .statusCode(200)
                 .extract();
 
