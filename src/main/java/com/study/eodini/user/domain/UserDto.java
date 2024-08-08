@@ -1,5 +1,107 @@
 package com.study.eodini.user.domain;
 
-public class UserDto {
+import com.study.eodini.user.error.UserException;
+import com.study.eodini.user.error.UserExceptionMessage;
+import lombok.Getter;
+
+import java.util.regex.Pattern;
+
+//@Getter
+public record UserDto(String name, String email, String password) {
+
+    /**
+     * 회원 Valid check 하기 위한 로직
+     */
+    public static final String EMAIL_REGEX = "^(.+)@(.+)$";
+
+    // 숫자, 영문(대소문자 구분) , 특수문자 추가 , 8~20글자 사이
+    // 토이 프로젝트라 주석처리
+//    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+
+
+    /**
+     * valid check 는 userEntity 로 변환전에 체크해서
+     * check 에 실패하면 빨리 controller 에서
+     * return 하려고 userValue 에서 처리하도록 구현하였습니다.
+     */
+    public static void isValid(UserDto userDto) {
+
+        emailPatternCheck(userDto.email());
+        passwordPatternCheck(userDto.password());
+
+    }
+
+    public static void isLoginValid(UserDto userDto) {
+        emailPatternCheck(userDto.email());
+        passwordPatternCheck(userDto.password());
+    }
+
+    private static void emailPatternCheck(String email) {
+        boolean emailRegexCheck = Pattern.compile(EMAIL_REGEX)
+                .matcher(email)
+                .matches();
+
+        if (!emailRegexCheck) {
+            throw new UserException(UserExceptionMessage.WRONG_EMAIL);
+        }
+    }
+
+    private static void passwordPatternCheck(String password) {
+//        boolean passwordRegexCheck = Pattern.compile(PASSWORD_REGEX)
+//                .matcher(password)
+//                .matches();
+//
+//        if (!passwordRegexCheck) {
+//            throw new UserException(UserExceptionMessage.WRONG_PASSWORD_FORM);
+//        }
+        if (password == null) {
+            throw new UserException(UserExceptionMessage.WRONG_PASSWORD_FORM);
+        }
+    }
+
+    public UserEntity toEntity() {
+        return UserEntity.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .build();
+    }
+
+    /**
+     * 필수값 email, 나머지는 선택값으로 builder 구현
+     */
+    public static class Builder {
+
+        // 필수 인자
+        private final String email;
+
+        // 선택
+        private String password;
+        private String name;
+        private Integer age;
+
+        public Builder(String email) {
+            this.email = email;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder age(Integer age) {
+            this.age = age;
+            return this;
+        }
+
+        public UserDto build() {
+            return new UserDto(name, email, password);
+        }
+    }
 
 }
